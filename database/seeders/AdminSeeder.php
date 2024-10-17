@@ -21,7 +21,6 @@ class AdminSeeder extends Seeder
 
         // 課題レビュー用の管理者アカウント
         Admin::create([
-            'name' => 'Admin2',
             'email' => 'admin2@example.com',
             'password' => Hash::make('admin2_password'),
         ]);
