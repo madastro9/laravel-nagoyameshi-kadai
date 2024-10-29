@@ -17,9 +17,9 @@ use App\Http\Controllers\RestaurantController as RestaurantMembersController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 require __DIR__ . '/auth.php';
 
@@ -29,4 +29,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::resource('users', Admin\UserController::class)->only(['index', 'show']);
 
     Route::resource('restaurants',  Admin\RestaurantController::class);
+
+    Route::resource('categories', Admin\CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
 });
