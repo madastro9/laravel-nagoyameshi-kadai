@@ -204,8 +204,8 @@ class RestaurantController extends Controller
         $restaurant->categories()->sync($category_ids);
 
 
-        $reguler_holiday_ids = array_filter($request->input('reguler_holiday_ids'));
-        $restaurant->reguler_holidays()->sync($reguler_holiday_ids);
+        //$regular_holiday_ids = array_filter($request->input('regular_holiday_ids'));
+        // $restaurant->reguler_holidays()->sync($regular_holiday_ids);
 
 
 
