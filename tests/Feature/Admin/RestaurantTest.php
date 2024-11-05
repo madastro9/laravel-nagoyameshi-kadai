@@ -163,7 +163,7 @@ class RestaurantTest extends TestCase
 
         $response = $this->post(route('admin.restaurants.store'), $restaurant_data);
         unset($restaurant_data['category_ids']);
-        unset($regular_holiday_ids['regular_holiday_ids']);
+        unset($restaurant_data['regular_holiday_ids']);
         $this->assertDatabaseMissing('restaurants', $restaurant_data);
         foreach ($category_ids as $category_id) {
             $this->assertDatabaseMissing('category_restaurant', ['category_id' => $category_id]);
@@ -200,9 +200,11 @@ class RestaurantTest extends TestCase
         ];
 
         $response = $this->actingAs($user)->post(route('admin.restaurants.store'), $restaurant_data);
+
         unset($restaurant_data['category_ids']);
-        unset($regular_holiday_ids['regular_holiday_ids']);
+        unset($restaurant_data['regular_holiday_ids']);
         $this->assertDatabaseMissing('restaurants', $restaurant_data);
+
         foreach ($category_ids as $category_id) {
             $this->assertDatabaseMissing('category_restaurant', ['category_id' => $category_id]);
         }
@@ -250,8 +252,9 @@ class RestaurantTest extends TestCase
         foreach ($category_ids as $category_id) {
             $this->assertDatabaseHas('category_restaurant', ['restaurant_id' => $restaurant->id, 'category_id' => $category_id]);
         }
+
         foreach ($regular_holiday_ids as $regular_holiday_id) {
-            $this->assertDatabaseHas('category_restaurant', ['restaurant_id' => $restaurant->id, 'regular_holiday_id' => $regular_holiday_id]);
+            $this->assertDatabaseHas('regular_holiday_restaurant', ['restaurant_id' => $restaurant->id, 'regular_holiday_id' => $regular_holiday_id]);
         }
 
         $response->assertRedirect(route('admin.restaurants.index'));
@@ -417,7 +420,7 @@ class RestaurantTest extends TestCase
         }
         foreach ($regular_holiday_ids as $regular_holiday_id) {
 
-            $this->assertDatabaseHas('regular_holiday_restaurant', ['regular_holiday_id' => $regular_holiday_id]);
+            $this->assertDatabaseHas('regular_holiday_restaurant', ['restaurant_id' => $restaurant->id, 'regular_holiday_id' => $regular_holiday_id]);
         }
         $response->assertRedirect(route('admin.restaurants.show', $old_restaurant));
     }
