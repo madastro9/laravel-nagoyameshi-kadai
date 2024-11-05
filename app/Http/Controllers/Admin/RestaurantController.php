@@ -150,7 +150,7 @@ class RestaurantController extends Controller
     public function edit(Restaurant $restaurant)
     {
         $categories = Category::all();
-        $reguler_holidays = RegularHoliday::all();
+        $regular_holidays = RegularHoliday::all();
 
         // 設定されたカテゴリのIDを配列化する
         $category_ids = $restaurant->categories->pluck('id')->toArray();
