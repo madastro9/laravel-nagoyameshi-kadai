@@ -144,8 +144,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 5000,
             'postal_code' => '0000000',
             'address' => 'テスト',
-            'opening_time' => '10:00:00',
-            'closing_time' => '20:00:00',
+            'opening_time' => '10:00',
+            'closing_time' => '20:00',
             'seating_capacity' => 50
         ];
 
@@ -168,8 +168,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 5000,
             'postal_code' => '0000000',
             'address' => 'テスト',
-            'opening_time' => '10:00:00',
-            'closing_time' => '20:00:00',
+            'opening_time' => '10:00',
+            'closing_time' => '20:00',
             'seating_capacity' => 50
         ];
 
@@ -194,8 +194,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 5000,
             'postal_code' => '0000000',
             'address' => 'テスト',
-            'opening_time' => '10:00:00',
-            'closing_time' => '20:00:00',
+            'opening_time' => '10:00',
+            'closing_time' => '20:00',
             'seating_capacity' => 100
         ];
 
@@ -262,8 +262,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 10000,
             'postal_code' => '1234567',
             'address' => 'テスト更新',
-            'opening_time' => '13:00:00',
-            'closing_time' => '23:00:00',
+            'opening_time' => '13:00',
+            'closing_time' => '23:00',
             'seating_capacity' => 100
         ];
 
@@ -288,8 +288,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 10000,
             'postal_code' => '1234567',
             'address' => 'テスト更新',
-            'opening_time' => '13:00:00',
-            'closing_time' => '23:00:00',
+            'opening_time' => '13:00',
+            'closing_time' => '23:00',
             'seating_capacity' => 100
         ];
 
@@ -316,8 +316,8 @@ class RestaurantTest extends TestCase
             'highest_price' => 5000,
             'postal_code' => '0000000',
             'address' => 'テスト',
-            'opening_time' => '10:00:00',
-            'closing_time' => '20:00:00',
+            'opening_time' => '10:00',
+            'closing_time' => '20:00',
             'seating_capacity' => 100
 
         ];
