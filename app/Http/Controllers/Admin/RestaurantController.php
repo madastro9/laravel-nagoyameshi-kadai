@@ -136,7 +136,7 @@ class RestaurantController extends Controller
         $restaurant->categories()->sync($category_ids);
 
 
-        $regular_holiday_ids = array_filter($request->input('regular_holiday_ids'));
+        $regular_holiday_ids = array_filter($request->input('regular_holiday_ids', []));
         $restaurant->regular_holidays()->sync($regular_holiday_ids);
 
 
@@ -204,7 +204,7 @@ class RestaurantController extends Controller
         $restaurant->categories()->sync($category_ids);
 
 
-        $regular_holiday_ids = array_filter($request->input('regular_holiday_ids'));
+        $regular_holiday_ids = array_filter($request->input('regular_holiday_ids', []));
         $restaurant->regular_holidays()->sync($regular_holiday_ids);
 
 
