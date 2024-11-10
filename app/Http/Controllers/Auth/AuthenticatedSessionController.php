@@ -1,59 +1,48 @@
 <?php
 
-namespace Tests\Feature;
+namespace App\Http\Controllers\Auth;
 
-use App\Models\Admin;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
-class HomeTest extends TestCase
+class AuthenticatedSessionController extends Controller
 {
     /**
-     * A basic feature test example.
+     * Display the login view.
      */
-    /*public function test_example(): void
+    public function create(): View
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }*/
-
-    use RefreshDatabase;
-
-    // ---
-    //index
-    // ---
-    // 未ログインのユーザーは会員側のトップページにアクセスできる
-    public function test_guest_can_access_home()
-    {
-        $response = $this->get(route('home'));
-
-        $response->assertStatus(200);
+        return view('auth.login');
     }
 
-    // ログイン済みの一般ユーザーは会員側のトップページにアクセスできる
-    public function test_user_can_access_home()
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function store(LoginRequest $request): RedirectResponse
     {
-        $user = User::factory()->create();
+        $request->authenticate();
 
-        $response = $this->actingAs($user)->get(route('home'));
+        $request->session()->regenerate();
 
-        $response->assertStatus(200);
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    // ログイン済みの管理者は会員側のトップページにアクセスできない
-    public function test_admin_cannot_access_home()
+    /**
+     * Destroy an authenticated session.
+     */
+    public function destroy(Request $request): RedirectResponse
     {
-        $admin = new Admin();
-        $admin->email = 'admin@example.com';
-        $admin->password = Hash::make('nagoyameshi');
-        $admin->save();
+        Auth::guard('web')->logout();
 
-        $response = $this->actingAs($admin, 'admin')->get(route('home'));
+        $request->session()->invalidate();
 
-        $response->assertRedirect(route('admin.home'));
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
