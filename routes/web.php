@@ -58,3 +58,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
     Route::get('terms/{term}/edit', [Admin\TermController::class, 'edit'])->name('terms.edit');
     Route::patch('terms/{term}', [Admin\TermController::class, 'update'])->name('terms.update');
 });
+
+
+// 一般ユーザーページ用ルート
+// トップページ・会員情報ページ・店舗情報ページ・会社概要ページ・利用規約ページ用ルート
+Route::group(['middleware' => 'guest:admin'], function () {
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+});
