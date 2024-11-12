@@ -64,4 +64,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 // トップページ・会員情報ページ・店舗情報ページ・会社概要ページ・利用規約ページ用ルート
 Route::group(['middleware' => 'guest:admin'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
+
+
+    Route::get('user', [UserController::class, 'index'])->name('user.index');
+    Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
 });
