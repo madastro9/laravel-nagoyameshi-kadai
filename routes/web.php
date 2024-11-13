@@ -69,4 +69,7 @@ Route::group(['middleware' => 'guest:admin'], function () {
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::group(['middleware' => ['auth', 'verified']], function () {
+        Route::resource('user', UserController::class)->only(['index', 'edit', 'update']);
+    });
 });
