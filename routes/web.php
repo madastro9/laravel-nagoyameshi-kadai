@@ -71,5 +71,6 @@ Route::group(['middleware' => 'guest:admin'], function () {
     Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('user', UserController::class)->only(['index', 'edit', 'update']);
+        Route::resource('restaurants', RestaurantController::class)->only(['index', 'show']);
     });
 });
