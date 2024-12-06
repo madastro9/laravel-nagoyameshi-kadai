@@ -64,6 +64,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth:admin
 // トップページ・会員情報ページ・店舗情報ページ・会社概要ページ・利用規約ページ用ルート
 Route::group(['middleware' => 'guest:admin'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::resource('restaurants', RestaurantController::class)->only(['index', 'show']);
 
 
     Route::get('user', [UserController::class, 'index'])->name('user.index');
@@ -71,6 +72,5 @@ Route::group(['middleware' => 'guest:admin'], function () {
     Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('user', UserController::class)->only(['index', 'edit', 'update']);
-        Route::resource('restaurants', RestaurantController::class)->only(['index', 'show']);
     });
 });
