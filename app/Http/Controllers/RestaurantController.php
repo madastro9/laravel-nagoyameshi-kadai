@@ -8,9 +8,7 @@ use App\Models\Category;
 
 class RestaurantController extends Controller
 {
-
-    // index 
-
+    //
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -19,18 +17,13 @@ class RestaurantController extends Controller
 
         $price = $request->input('price');
 
-        $sort = $request->input('sort', 'created_at desc');
-
         $sorts = [
             '掲載日が新しい順' => 'created_at desc',
-            '価格が安い順' => 'lowest_price asc',
-            '評価が高い順' => 'rating desc',
-            '予約数が多い順' => 'popular desc'
+            '価格が安い順' => 'lowest_price asc'
         ];
 
-
         $sort_query = [];
-        $sorted = "created_at desc";
+        $sorted = 'created_at desc';
 
         if ($request->has('select_sort')) {
             $slices = explode(' ', $request->input('select_sort'));
@@ -52,7 +45,7 @@ class RestaurantController extends Controller
                 $query->where('categories.id', $category_id);
             })->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
         } elseif ($price) {
-            $restaurants = Restaurant::where('lowest_price', '<=', $price)->sortable($sort_query)->orderBy('lowest_price', 'asc')->paginate(15);
+            $restaurants = Restaurant::where('lowest_price', '<=', $price)->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
         } else {
             $restaurants = Restaurant::sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
         }
@@ -63,8 +56,6 @@ class RestaurantController extends Controller
 
         return view('restaurants.index', compact('keyword', 'category_id', 'price', 'sorts', 'sorted', 'restaurants', 'categories', 'total'));
     }
-
-    // show アクション
 
     public function show(Restaurant $restaurant)
     {

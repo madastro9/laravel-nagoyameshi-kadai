@@ -8,9 +8,9 @@ use App\Models\Category;
 
 class RestaurantController extends Controller
 {
-    // -----
-    // index アクション
-    // -----
+
+    // index 
+
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -18,7 +18,6 @@ class RestaurantController extends Controller
         $category_id = $request->input('category_id');
 
         $price = $request->input('price');
-        // dd($price);
 
         $sort = $request->input('sort', 'created_at desc');
 
@@ -38,7 +37,6 @@ class RestaurantController extends Controller
             $sort_query[$slices[0]] = $slices[1];
             $sorted = $request->input('select_sort');
         }
-        // dd($slices,$sort_query,$sorted);
 
         if ($keyword) {
             $restaurants = Restaurant::where('name', 'like', "%{$keyword}%")
@@ -56,9 +54,7 @@ class RestaurantController extends Controller
         } elseif ($price) {
             $restaurants = Restaurant::where('lowest_price', '<=', $price)->sortable($sort_query)->orderBy('lowest_price', 'asc')->paginate(15);
         } else {
-            \DB::enableQueryLog();
             $restaurants = Restaurant::sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
-            // dd(\DB::getQueryLog());
         }
 
         $categories = Category::all();
@@ -68,9 +64,8 @@ class RestaurantController extends Controller
         return view('restaurants.index', compact('keyword', 'category_id', 'price', 'sorts', 'sorted', 'restaurants', 'categories', 'total'));
     }
 
-    // -----
     // show アクション
-    // -----
+
     public function show(Restaurant $restaurant)
     {
         return view('restaurants.show', compact('restaurant'));
