@@ -8,7 +8,7 @@ use App\Models\Category;
 
 class RestaurantController extends Controller
 {
-    //
+
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
