@@ -10,6 +10,13 @@ class Restaurant extends Model
 {
     use HasFactory, Sortable;
 
+    public $sortable = [
+        'rating',
+        'popular',
+        'lowest_price'
+    ];
+
+
     protected $fillable = [
         'name',
         'description',
@@ -22,11 +29,6 @@ class Restaurant extends Model
         'seating_capacity',
     ];
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'restaurant_user');
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class)->withTimestamps();
@@ -35,5 +37,11 @@ class Restaurant extends Model
     public function regular_holidays()
     {
         return $this->belongsToMany(RegularHoliday::class)->withTimestamps();
+    }
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }
