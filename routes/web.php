@@ -11,6 +11,9 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\TermController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +69,11 @@ Route::group(['middleware' => 'guest:admin'], function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::resource('restaurants', RestaurantController::class)->only(['index', 'show']);
 
+    //会社概要ページ
+    Route::get('company', [CompanyController::class, 'index'])->name('company.index');
+
+    //利用規約ページ
+    Route::get('terms', [TermController::class, 'index'])->name('terms.index');
 
     Route::get('user', [UserController::class, 'index'])->name('user.index');
     Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
