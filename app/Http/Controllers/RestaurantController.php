@@ -52,7 +52,7 @@ class RestaurantController extends Controller
         } elseif ($category_id) {
             $restaurants = Restaurant::whereHas('categories', function ($query) use ($category_id) {
                 $query->where('categories.id', $category_id);
-            })->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(15);
+            })->sortable($sort_query)->orderBy('created_at', 'desc')->paginate(6);
         } elseif ($price) {
             $restaurants = Restaurant::where('lowest_price', '<=', $price)->sortable($sort_query)->orderBy('lowest_price', 'asc')->paginate(15);
         } else {

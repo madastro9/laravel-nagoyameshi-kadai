@@ -16,19 +16,6 @@ class Restaurant extends Model
         'lowest_price'
     ];
 
-
-    protected $fillable = [
-        'name',
-        'description',
-        'lowest_price',
-        'highest_price',
-        'postal_code',
-        'address',
-        'opening_time',
-        'closing_time',
-        'seating_capacity',
-    ];
-
     public function categories()
     {
         return $this->belongsToMany(Category::class)->withTimestamps();
@@ -38,7 +25,6 @@ class Restaurant extends Model
     {
         return $this->belongsToMany(RegularHoliday::class)->withTimestamps();
     }
-
 
     public function reviews()
     {
@@ -53,6 +39,11 @@ class Restaurant extends Model
     public function favorite_users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    public function ratingSortable($query, $direction)
+    {
+        return $query->withAvg('reviews', 'score')->orderBy('reviews_avg_score', $direction);
     }
 
     public function popularSortable($query, $direction)
